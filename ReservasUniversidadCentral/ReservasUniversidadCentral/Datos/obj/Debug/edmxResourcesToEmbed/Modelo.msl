@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UniversidadModelStoreContainer" CdmEntityContainer="UniversidadEntities">
+    <EntitySetMapping Name="Elementos">
+      <EntityTypeMapping TypeName="UniversidadModel.Elemento">
+        <MappingFragment StoreEntitySet="Elementos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ZonaComunId" ColumnName="ZonaComunId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reservas">
+      <EntityTypeMapping TypeName="UniversidadModel.Reserva">
+        <MappingFragment StoreEntitySet="Reservas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="ZonaComunId" ColumnName="ZonaComunId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TiposZonaComuns">
+      <EntityTypeMapping TypeName="UniversidadModel.TiposZonaComun">
+        <MappingFragment StoreEntitySet="TiposZonaComun">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ZonasComunes">
+      <EntityTypeMapping TypeName="UniversidadModel.ZonasComune">
+        <MappingFragment StoreEntitySet="ZonasComunes">
+          <ScalarProperty Name="TipoZonaComunId" ColumnName="TipoZonaComunId" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

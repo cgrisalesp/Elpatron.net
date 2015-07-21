@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UniversidadModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Elemento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ZonaComunId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ZonasComune" Relationship="UniversidadModel.FK_Elementos_ZonasComunes" FromRole="Elemento" ToRole="ZonasComune" />
+  </EntityType>
+  <EntityType Name="Reserva">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ZonaComunId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ZonasComune" Relationship="UniversidadModel.FK_Reservas_ZonasComunes" FromRole="Reserva" ToRole="ZonasComune" />
+  </EntityType>
+  <EntityContainer Name="UniversidadEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Elementos" EntityType="Self.Elemento" />
+    <EntitySet Name="Reservas" EntityType="Self.Reserva" />
+    <EntitySet Name="TiposZonaComuns" EntityType="UniversidadModel.TiposZonaComun" />
+    <EntitySet Name="ZonasComunes" EntityType="UniversidadModel.ZonasComune" />
+    <AssociationSet Name="FK_Elementos_ZonasComunes" Association="UniversidadModel.FK_Elementos_ZonasComunes">
+      <End Role="ZonasComune" EntitySet="ZonasComunes" />
+      <End Role="Elemento" EntitySet="Elementos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reservas_ZonasComunes" Association="UniversidadModel.FK_Reservas_ZonasComunes">
+      <End Role="ZonasComune" EntitySet="ZonasComunes" />
+      <End Role="Reserva" EntitySet="Reservas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZonasComunes_TiposZonaComun" Association="UniversidadModel.FK_ZonasComunes_TiposZonaComun">
+      <End Role="TiposZonaComun" EntitySet="TiposZonaComuns" />
+      <End Role="ZonasComune" EntitySet="ZonasComunes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TiposZonaComun">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ZonasComunes" Relationship="UniversidadModel.FK_ZonasComunes_TiposZonaComun" FromRole="TiposZonaComun" ToRole="ZonasComune" />
+  </EntityType>
+  <EntityType Name="ZonasComune">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TipoZonaComunId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Elementos" Relationship="UniversidadModel.FK_Elementos_ZonasComunes" FromRole="ZonasComune" ToRole="Elemento" />
+    <NavigationProperty Name="Reservas" Relationship="UniversidadModel.FK_Reservas_ZonasComunes" FromRole="ZonasComune" ToRole="Reserva" />
+    <NavigationProperty Name="TiposZonaComun" Relationship="UniversidadModel.FK_ZonasComunes_TiposZonaComun" FromRole="ZonasComune" ToRole="TiposZonaComun" />
+  </EntityType>
+  <Association Name="FK_Elementos_ZonasComunes">
+    <End Type="UniversidadModel.ZonasComune" Role="ZonasComune" Multiplicity="1" />
+    <End Type="UniversidadModel.Elemento" Role="Elemento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZonasComune">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Elemento">
+        <PropertyRef Name="ZonaComunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reservas_ZonasComunes">
+    <End Type="UniversidadModel.ZonasComune" Role="ZonasComune" Multiplicity="1" />
+    <End Type="UniversidadModel.Reserva" Role="Reserva" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZonasComune">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reserva">
+        <PropertyRef Name="ZonaComunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZonasComunes_TiposZonaComun">
+    <End Type="UniversidadModel.TiposZonaComun" Role="TiposZonaComun" Multiplicity="1" />
+    <End Type="UniversidadModel.ZonasComune" Role="ZonasComune" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposZonaComun">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ZonasComune">
+        <PropertyRef Name="TipoZonaComunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

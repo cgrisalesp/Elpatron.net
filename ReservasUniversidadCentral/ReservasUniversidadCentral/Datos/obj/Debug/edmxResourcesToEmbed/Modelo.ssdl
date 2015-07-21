@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UniversidadModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Elementos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ZonaComunId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reservas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="ZonaComunId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TiposZonaComun">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ZonasComunes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TipoZonaComunId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Elementos_ZonasComunes">
+    <End Role="ZonasComunes" Type="Self.ZonasComunes" Multiplicity="1" />
+    <End Role="Elementos" Type="Self.Elementos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZonasComunes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Elementos">
+        <PropertyRef Name="ZonaComunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reservas_ZonasComunes">
+    <End Role="ZonasComunes" Type="Self.ZonasComunes" Multiplicity="1" />
+    <End Role="Reservas" Type="Self.Reservas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZonasComunes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reservas">
+        <PropertyRef Name="ZonaComunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZonasComunes_TiposZonaComun">
+    <End Role="TiposZonaComun" Type="Self.TiposZonaComun" Multiplicity="1" />
+    <End Role="ZonasComunes" Type="Self.ZonasComunes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TiposZonaComun">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ZonasComunes">
+        <PropertyRef Name="TipoZonaComunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UniversidadModelStoreContainer">
+    <EntitySet Name="Elementos" EntityType="Self.Elementos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reservas" EntityType="Self.Reservas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TiposZonaComun" EntityType="Self.TiposZonaComun" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ZonasComunes" EntityType="Self.ZonasComunes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Elementos_ZonasComunes" Association="Self.FK_Elementos_ZonasComunes">
+      <End Role="ZonasComunes" EntitySet="ZonasComunes" />
+      <End Role="Elementos" EntitySet="Elementos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reservas_ZonasComunes" Association="Self.FK_Reservas_ZonasComunes">
+      <End Role="ZonasComunes" EntitySet="ZonasComunes" />
+      <End Role="Reservas" EntitySet="Reservas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZonasComunes_TiposZonaComun" Association="Self.FK_ZonasComunes_TiposZonaComun">
+      <End Role="TiposZonaComun" EntitySet="TiposZonaComun" />
+      <End Role="ZonasComunes" EntitySet="ZonasComunes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

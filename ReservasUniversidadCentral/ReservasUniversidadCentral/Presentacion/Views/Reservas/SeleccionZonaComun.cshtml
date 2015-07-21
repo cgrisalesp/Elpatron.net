@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "SeleccionZonaComun";    
+}
+@model Presentacion.Models.SeleccionZonaComun
+    <h2>SeleccionZonaComun</h2>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Lista de reservas</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nomre</th>
+                        <th>Elementos</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var zona in @Model.ZonasComunes)
+                    {
+                        <tr>
+                            <td>@zona.Nombre</td>
+                            <td>
+                                <b>Elementos:</b><br />
+                                @foreach (var elemento in @zona.Elementos)
+                                {
+                                    @elemento.Nombre
+                                    <br />
+                                }
+                            </td>
+                            @Html.HiddenFor(m=>m.Fecha)
+                            <td><a href="@Url.Action("Reservar1", "Reservas", new { id = @zona.Id, fecha = @Model.Fecha })">reservar!!!</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Reservas";
+}
+@model IEnumerable<Dominio.Reserva>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Lista de reservas</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Zona comun</th>
+                <th>Fecha</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var reserva in Model)
+            {
+                <tr>
+                    <td>@reserva.ZonaComun</td>
+                    <td>@reserva.Fecha</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <a class="btn btn-primary" href="@Url.Action("Reservar","Reservas")">Nueva Reserva!</a>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model Presentacion.Models.AgregarReserva
+
+@{
+    ViewBag.Title = "Nueva reserva";
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Lista de reservas</h3>
+    </div>
+    @using (Html.BeginForm("Reservar", "Reservas", FormMethod.Post, new {@class = "form-horizontal"}))
+    {
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Fecha, new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Fecha, new { @class = "form-control", id = "datetimepicker" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ZonaComun, new {@class = "col-sm-2 control-label"})
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.ZonaComun, Model.ZonasComunes,"Seleccionar", new { @class = "form-control", id = "tiposZonaComun"})
+                </div>
+            </div>
+            <div id="tablaZonas">
+
+            </div>            
+        </div>
+    }
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            defaultDate: '2015-05-28'
+        });
+    });
+
+    $('#tiposZonaComun').on("change",function() {
+        var tipo = $("#tiposZonaComun").val();
+        var fecha = $("#datetimepicker").val();
+        var url = "@Url.Action("SeleccionZonaComun", "Reservas")" + "/" + tipo + "?fecha=" + fecha;
+        window.location = url ;
+    });
+</script>
+
+}
